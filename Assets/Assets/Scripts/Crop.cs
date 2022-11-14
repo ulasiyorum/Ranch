@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
 {
     public GameAssets gameAssets;
+    public UIController controller;
     private const int MaxFaze = 3;
     private int id;
     private int purchaseValue;
@@ -17,6 +18,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
 
     private void Start()
     {
+        CollectPrize = 1;
         collectTime = 2;
         id = 0;
         CurrentFaze = 0;
@@ -65,6 +67,12 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
     {
         currentFaze = 0;
         GetComponent<SpriteRenderer>().sprite = gameAssets.CropSprites[id + CurrentFaze];
-        Profile.Balance += collectPrize + Profile.ExtraCrop; 
+        Profile.Balance += collectPrize + Profile.ExtraCrop;
+        controller.UpdateText("Balance: " + Profile.Balance);
+        PlayCollectAnimation();
+    }
+    private void PlayCollectAnimation()
+    {
+        AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[id], gameAssets.CropSprites[id+2]);
     }
 }
