@@ -14,15 +14,23 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
     private float collectTime;
     private int currentFaze;
 
-    private bool coroutineRunning = false;
-
-    private void Start()
+    private void Awake()
     {
         CollectPrize = 1;
         collectTime = 2;
         id = 0;
         CurrentFaze = 0;
+        if (SaveSystem.FileExists())
+        {
+            ProfileData data = SaveSystem.Load();
+            Init(new Crop(data.Crop));
+            Profile.Load(data);
+        }
         StartCoroutine(SkipFaze());
+    }
+    private void Start()
+    {
+
     }
 
 
@@ -70,9 +78,38 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
         Profile.Balance += collectPrize + Profile.ExtraCrop;
         controller.UpdateText("Balance: " + Profile.Balance);
         PlayCollectAnimation();
+        SaveSystem.Save();
     }
     private void PlayCollectAnimation()
     {
         AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[id], gameAssets.CropSprites[id+2]);
+    }
+    public void Init(Crop crop)
+    {
+        this.id = crop.id;
+        this.purchaseValue = crop.purchaseValue;
+        this.collectPrize = crop.collectPrize;
+        this.collectTime = crop.collectTime;
+        this.currentFaze = crop.currentFaze;
+
+    }
+    public Crop(int id)
+    {
+        currentFaze = 1;
+        this.id = id;
+        switch (id)
+        {
+            case 0:
+                this.purchaseValue = 0;
+                this.collectPrize = 1;
+                this.collectTime = 2;
+            break;
+            
+            default:
+                this.purchaseValue = 0;
+                this.collectPrize = 1;
+                this.collectTime = 2;
+            break;
+        }
     }
 }

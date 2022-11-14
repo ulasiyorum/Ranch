@@ -4,6 +4,16 @@ using UnityEngine;
 
 public static class Profile
 {
+    private static Crop crop;
+    public static Crop Crop { 
+        get 
+        {
+            if (crop == null) 
+                return new Crop(0);
+            else
+                return crop;
+        } 
+    }
     private static int balance;
     public static int Balance 
     { 
@@ -28,13 +38,14 @@ public static class Profile
 
     //////
 
-    private static int extraCrop = 0;
+    private static int extraCrop;
 
     //////
     
-    private static void Load() // send value
+    public static void Load(ProfileData p) // send value
     {
-        balance = 0;
-        extraCrop = 0;
+        balance = p.Balance;
+        extraCrop = p.ExtraCrop;
+        crop = new Crop(p.Crop);
     }
 }
