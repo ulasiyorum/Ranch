@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameAssets gameAssets;
+    private const int MaxFaze = 1;
+    private int id;
+    private int purchaseValue;
+    private int collectPrize;
+    private float collectTime;
+    private int currentFaze;
+
+    private void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
         
     }
