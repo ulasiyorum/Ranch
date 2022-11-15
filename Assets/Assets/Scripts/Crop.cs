@@ -95,7 +95,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
     }
     public Crop(int id)
     {
-        currentFaze = 1;
+        currentFaze = 0;
         this.id = id;
         switch (id)
         {
