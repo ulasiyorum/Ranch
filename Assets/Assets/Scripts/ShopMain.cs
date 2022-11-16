@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 public class ShopMain : MonoBehaviour
 {
+    [SerializeField] Crop crop;
     [SerializeField] Text[] prices;
     public GameAssets assets;
-
     private void Start()
     {
         AllTextsUpdated();
     }
 
-    public static void UpdatePrice(Text priceText,int price)
+    public void UpdatePrice(int price,int index)
     {
-        priceText.text = price.ToString();
+        Profile.PriceList[index] = price;
+        prices[index].text = price.ToString();
     }
 
     public void Buy(int buy)
@@ -26,28 +27,32 @@ public class ShopMain : MonoBehaviour
             PopUpMessage.StartPopUpMessage(assets.TextPrefabs[0],"Not Enough Balance");
             return;
         }
+        Profile.Balance -= Profile.PriceList[buy];
         switch (buy)
         {
             case 0:
                 Profile.ExtraCrop++;
-                UpdatePrice(prices[0],price + price * 4 * (Profile.ExtraCrop));
+                Crop.PerksInit(crop);
+                SaveSystem.Save();
+                UpdatePrice(Profile.PriceList[buy] + Profile.PriceList[buy] * 4 * Profile.ExtraCrop, buy);
+            break;
+            case 1:
+                Profile.RegrowFaster++;
+                Crop.PerksInit(crop);
+                SaveSystem.Save();
+                UpdatePrice((Profile.PriceList[buy] - 3) * 5 * (Profile.RegrowFaster+1), buy);
             break;
         }
     }
     private void AllTextsUpdated()
     {
-        foreach(Text text in prices)
+        if (Profile.PriceList == null)
+            return;
+        int i = 0;
+        foreach (Text text in prices)
         {
-            if (!int.TryParse(text.text, out int result))
-                return;
-
-            int price = int.Parse(text.text);
-            switch (System.Array.IndexOf(prices,text))
-            {
-                case 0:
-                    text.text = (price + price * 4 * (Profile.ExtraCrop)).ToString();
-                    break;
-            }
+            text.text = Profile.PriceList[i].ToString();
+            i++;
         }
     }
 }

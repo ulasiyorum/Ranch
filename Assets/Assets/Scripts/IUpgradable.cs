@@ -11,5 +11,5 @@ public interface IUpgradable
     public float CollectTime { get; }
     public int CurrentFaze { get; }
 
-    public IEnumerator SkipFaze();
+    public IEnumerator SkipFaze(float collectTime);
 }

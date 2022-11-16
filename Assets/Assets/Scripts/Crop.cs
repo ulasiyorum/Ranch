@@ -16,6 +16,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
 
     private void Awake()
     {
+        Profile.Balance = 1000;
         CollectPrize = 1;
         collectTime = 2;
         id = 0;
@@ -25,8 +26,9 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
             ProfileData data = SaveSystem.Load();
             Init(new Crop(data.Crop));
             Profile.Load(data);
+            PerksInit(this);
         }
-        StartCoroutine(SkipFaze());
+        StartCoroutine(SkipFaze(collectTime));
     }
     private void Start()
     {
@@ -45,7 +47,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
     public int CurrentFaze { get => currentFaze; private set => currentFaze = value; }
 
 
-    public IEnumerator SkipFaze()
+    public IEnumerator SkipFaze(float collectTime)
     {
         if (currentFaze >= MaxFaze - 1) { yield return new WaitForSeconds(0); }
         else
@@ -53,7 +55,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
             yield return new WaitForSeconds(collectTime);
             currentFaze++;
             GetComponent<SpriteRenderer>().sprite = gameAssets.CropSprites[id+CurrentFaze];
-            StartCoroutine(SkipFaze());
+            StartCoroutine(SkipFaze(collectTime));
         }
     }
 
@@ -67,7 +69,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
         else
         {
             Collect();
-            StartCoroutine(SkipFaze());
+            StartCoroutine(SkipFaze(collectTime));
         }
         
     }
@@ -75,7 +77,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
     {
         currentFaze = 0;
         GetComponent<SpriteRenderer>().sprite = gameAssets.CropSprites[id + CurrentFaze];
-        Profile.Balance += collectPrize + Profile.ExtraCrop;
+        Profile.Balance += collectPrize;
         controller.UpdateText("Balance: " + Profile.Balance);
         PlayCollectAnimation();
         SaveSystem.Save();
@@ -110,5 +112,16 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
                 this.collectTime = 2;
             break;
         }
+    }
+    public static void PerksInit(Crop c)
+    {
+        c.Init(new Crop(c.id));
+        c.collectPrize += Profile.ExtraCrop;
+        for(int i=0; i<Profile.RegrowFaster; i++)
+        {
+            float decreaseby = c.collectTime / 20;
+            c.collectTime -= decreaseby;
+        }
+        c.controller.UpdateText("Balance: " + Profile.Balance);
     }
 }

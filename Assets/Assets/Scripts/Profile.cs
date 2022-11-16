@@ -35,17 +35,32 @@ public static class Profile
             extraCrop = value;
         }
     }
-
+    public static int RegrowFaster
+    {
+        get => regrowFaster;
+        set
+        {
+            if (value < 0)
+                return;
+            regrowFaster = value;
+        }
+    }
     //////
 
     private static int extraCrop;
+    private static int regrowFaster;
 
     //////
-    
+    private static int[] priceList = new int[10] { 10, 25, 0, 0, 0, 0, 0, 0, 0, 0 };
+    public static int[] PriceList { get => priceList; set => priceList = value; }
+
     public static void Load(ProfileData p) // send value
     {
+        Debug.Log(p.UpgradesPriceList[1]); // tomorrow's issue
         balance = p.Balance;
         extraCrop = p.ExtraCrop;
         crop = new Crop(p.Crop);
+        regrowFaster = p.RegrowFaster;
+        PriceList = p.UpgradesPriceList;
     }
 }

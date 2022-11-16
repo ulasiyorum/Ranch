@@ -14,7 +14,7 @@ public static class SaveSystem
                                        FileMode.OpenOrCreate,
                                        FileAccess.ReadWrite,
                                        FileShare.ReadWrite);
-        ProfileData data = new ProfileData(Profile.Balance,Profile.ExtraCrop,Profile.Crop.ID);
+        ProfileData data = new ProfileData(Profile.Balance,Profile.ExtraCrop,Profile.RegrowFaster,Profile.PriceList,Profile.Crop.ID);
         if (File.Exists(saveFile))
         {
             bf.Serialize(fs, data);
