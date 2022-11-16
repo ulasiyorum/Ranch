@@ -104,7 +104,6 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
                 this.collectPrize = 1;
                 this.collectTime = 2;
             break;
-            
             default:
                 this.purchaseValue = 0;
                 this.collectPrize = 1;
