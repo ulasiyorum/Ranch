@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] Text balance;
-    private void Start()
+    [SerializeField] Text text;
+    [SerializeField] string _text;
+    private void Awake()
     {
-        UpdateText("Balance: " + Profile.Balance);
+        if(text != null)
+        UpdateText(_text);
     }
     public void UpdateText(string text)
     {
-        balance.text = text;
+        this.text.text = text;
     }
 }

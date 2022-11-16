@@ -30,7 +30,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
     }
     private void Start()
     {
-
+        controller.UpdateText("Balance: " + Profile.Balance);
     }
 
 
