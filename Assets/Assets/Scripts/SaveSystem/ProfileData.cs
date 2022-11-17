@@ -11,7 +11,7 @@ public class ProfileData
     public int ExtraCrop { get; private set; }
     public int RegrowFaster { get; private set; }
 
-    public string UpgradesPriceList { get; private set; }
+    public int[] UpgradesPriceList { get; private set; }
 
     public ProfileData(int balance,int extraCrop,int regrowFaster, int[] priceList ,int crop)
     {
@@ -19,6 +19,6 @@ public class ProfileData
         this.ExtraCrop = extraCrop;
         this.Crop = crop;
         this.RegrowFaster = regrowFaster;
-        this.UpgradesPriceList = SaveSystem.ConvertArrayToString(priceList);
+        this.UpgradesPriceList = priceList;
     }
 }

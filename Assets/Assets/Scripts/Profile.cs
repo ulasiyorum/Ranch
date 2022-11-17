@@ -60,6 +60,6 @@ public static class Profile
         extraCrop = p.ExtraCrop;
         crop = new Crop(p.Crop);
         regrowFaster = p.RegrowFaster;
-        PriceList = SaveSystem.ConvertIntArray(p.UpgradesPriceList);
+        PriceList = p.UpgradesPriceList;
     }
 }
