@@ -28,7 +28,10 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
             Profile.Load(data);
             PerksInit(this);
         }
-        StartCoroutine(SkipFaze(collectTime));
+        else
+        {
+            StartCoroutine(SkipFaze(collectTime));
+        }
     }
     private void Start()
     {
@@ -93,7 +96,14 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
         this.collectPrize = crop.collectPrize;
         this.collectTime = crop.collectTime;
         this.currentFaze = crop.currentFaze;
-
+        RestartGrowing();
+        
+    }
+    private void RestartGrowing()
+    {
+        StopAllCoroutines();
+        GetComponent<SpriteRenderer>().sprite = gameAssets.CropSprites[id + CurrentFaze];
+        StartCoroutine(SkipFaze(collectTime));
     }
     public Crop(int id)
     {

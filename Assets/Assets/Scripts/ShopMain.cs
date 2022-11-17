@@ -34,12 +34,14 @@ public class ShopMain : MonoBehaviour
                 Profile.ExtraCrop++;
                 Crop.PerksInit(crop);
                 UpdatePrice(Profile.PriceList[buy] + Profile.PriceList[buy] * 4 * Profile.ExtraCrop, buy);
+                PopUpMessage.StartPopUpMessage(assets.TextPrefabs[1], "Upgrade Applied!");
                 SaveSystem.Save();
             break;
             case 1:
                 Profile.RegrowFaster++;
                 Crop.PerksInit(crop);
                 UpdatePrice((Profile.PriceList[buy] - 3) * 5 * (Profile.RegrowFaster + 1), buy);
+                PopUpMessage.StartPopUpMessage(assets.TextPrefabs[1], "Upgrade Applied!");
                 SaveSystem.Save();
             break;
         }
