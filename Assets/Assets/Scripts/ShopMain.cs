@@ -33,14 +33,14 @@ public class ShopMain : MonoBehaviour
             case 0:
                 Profile.ExtraCrop++;
                 Crop.PerksInit(crop);
-                SaveSystem.Save();
                 UpdatePrice(Profile.PriceList[buy] + Profile.PriceList[buy] * 4 * Profile.ExtraCrop, buy);
+                SaveSystem.Save();
             break;
             case 1:
                 Profile.RegrowFaster++;
                 Crop.PerksInit(crop);
+                UpdatePrice((Profile.PriceList[buy] - 3) * 5 * (Profile.RegrowFaster + 1), buy);
                 SaveSystem.Save();
-                UpdatePrice((Profile.PriceList[buy] - 3) * 5 * (Profile.RegrowFaster+1), buy);
             break;
         }
     }
@@ -48,6 +48,22 @@ public class ShopMain : MonoBehaviour
     {
         if (Profile.PriceList == null)
             return;
+        if(Profile.PriceList.Length == 0)
+        {
+            Profile.PriceList = new int[10];
+            foreach(int buy in Profile.PriceList)
+            {
+                switch (System.Array.IndexOf(Profile.PriceList, buy))
+                {
+                    case 0:
+                        Profile.PriceList[0] = 10;
+                        break;
+                    case 1:
+                        Profile.PriceList[1] = 25;
+                        break;
+                }
+            }
+        }
         int i = 0;
         foreach (Text text in prices)
         {

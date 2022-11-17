@@ -56,11 +56,10 @@ public static class Profile
 
     public static void Load(ProfileData p) // send value
     {
-        Debug.Log(p.UpgradesPriceList[1]); // tomorrow's issue
         balance = p.Balance;
         extraCrop = p.ExtraCrop;
         crop = new Crop(p.Crop);
         regrowFaster = p.RegrowFaster;
-        PriceList = p.UpgradesPriceList;
+        PriceList = SaveSystem.ConvertIntArray(p.UpgradesPriceList);
     }
 }
