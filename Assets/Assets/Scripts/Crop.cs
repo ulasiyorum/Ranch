@@ -21,17 +21,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
         collectTime = 2;
         id = 0;
         CurrentFaze = 0;
-        if (SaveSystem.FileExists())
-        {
-            ProfileData data = SaveSystem.Load();
-            Init(new Crop(data.Crop));
-            Profile.Load(data);
-            PerksInit(this);
-        }
-        else
-        {
-            StartCoroutine(SkipFaze(collectTime));
-        }
+        
     }
     private void Start()
     {
