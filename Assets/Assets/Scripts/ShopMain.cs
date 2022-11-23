@@ -73,4 +73,18 @@ public class ShopMain : MonoBehaviour
             i++;
         }
     }
+
+    public void BuyMain(int buy)
+    {
+        Buyable item = Buyable.GetBuyable(buy);
+        if (item == null)
+            return;
+        if(item.Price > Profile.Balance)
+        {
+            PopUpMessage.StartPopUpMessage(assets.TextPrefabs[0], "Not Enough Balance");
+            return;
+        }
+
+        item.Event.Invoke(assets);
+    }
 }
