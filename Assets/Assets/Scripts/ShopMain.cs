@@ -85,6 +85,8 @@ public class ShopMain : MonoBehaviour
             return;
         }
 
+        Profile.Balance -= item.Price;
+        PopUpMessage.StartPopUpMessage(assets.TextPrefabs[1], "Bought " + item.Name + " for " + item.Price);
         item.Event.Invoke(assets);
     }
 }

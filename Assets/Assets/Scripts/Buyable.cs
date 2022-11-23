@@ -7,6 +7,7 @@ public class Buyable
 {
     public int Price { get; set; }
     public int ID { get; set; }
+    public string Name { get; set; }
     public int Level { get; set; }
     public double Multiplier { get; set; }
     public Action<GameAssets> Event { get; set; }
