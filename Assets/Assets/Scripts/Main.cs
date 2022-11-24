@@ -8,6 +8,7 @@ public class Main : MonoBehaviour
     private static UIController controller;
     private void Awake()
     {
+        controller = GetComponent<UIController>();
         if (SaveSystem.FileExists())
         {
             ProfileData data = SaveSystem.Load();
@@ -22,7 +23,6 @@ public class Main : MonoBehaviour
     }
     void Start()
     {
-        controller = FindObjectOfType<UIController>();
         UpdateBalance();
     }
 
@@ -34,6 +34,7 @@ public class Main : MonoBehaviour
 
     public static void UpdateBalance()
     {
+        
         controller.UpdateText("Balance: " + Profile.Balance);
     }
 }

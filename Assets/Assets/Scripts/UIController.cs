@@ -16,4 +16,8 @@ public class UIController : MonoBehaviour
     {
         this.text.text = text;
     }
+    public static void UpdateText(Text text, string str)
+    {
+        text.text = str;
+    }
 }

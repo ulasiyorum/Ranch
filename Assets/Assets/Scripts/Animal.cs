@@ -22,8 +22,9 @@ public class Animal : MonoBehaviour,ICollectable,IPointerDownHandler
 
     private void Start()
     {
-        isReady = GetComponentInChildren<GameObject>();
-        isReady.SetActive(false);
+        //isReady = GetComponentInChildren<GameObject>();
+        //isReady.SetActive(false);
+        StartCoroutine(PlayRandomAnimation());
     }
 
 
@@ -67,5 +68,25 @@ public class Animal : MonoBehaviour,ICollectable,IPointerDownHandler
     private void PlayCollectAnimation()
     {
         AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[id], isReady.GetComponentInChildren<SpriteRenderer>().sprite);
+    }
+    private IEnumerator PlayRandomAnimation()
+    {
+        Animator anim = GetComponent<Animator>();
+        int condition = Random.Range(0, 10);
+        if(condition < 2)
+        {
+            anim.SetTrigger("0");
+        }
+        else if(condition < 6)
+        {
+            anim.SetTrigger("1");
+        }
+        else
+        {
+            anim.SetTrigger("2");
+        }
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + ((condition-2) * 1.2f));
+        anim.SetTrigger("3");
+        StartCoroutine(PlayRandomAnimation());
     }
 }
