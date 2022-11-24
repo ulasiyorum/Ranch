@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public interface IUpgradable
+public interface ICollectable
 {
     public int ID { get; }
     public int PurchaseValue { get; }

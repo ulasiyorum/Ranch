@@ -12,5 +12,14 @@ public class PopUpMessage : MonoBehaviour
         Instantiate(prefab,FindObjectOfType<Canvas>().transform,false);
         Destroy(obj, 2.5f);
     }
-    
+    public static void StartPopUpMessage(GameObject prefab, string text,Color color)
+    {
+        Color startColor = prefab.GetComponent<Text>().color;
+        prefab.GetComponent<Text>().text = text;
+        prefab.GetComponent<Text>().color = color;
+        GameObject obj =
+        Instantiate(prefab, FindObjectOfType<Canvas>().transform, false);
+        Destroy(obj, 2.5f);
+        prefab.GetComponent<Text>().color = startColor;
+    }
 }

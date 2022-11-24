@@ -5,6 +5,7 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     [SerializeField] Crop crop;
+    private static UIController controller;
     private void Awake()
     {
         if (SaveSystem.FileExists())
@@ -21,12 +22,18 @@ public class Main : MonoBehaviour
     }
     void Start()
     {
-        
+        controller = FindObjectOfType<UIController>();
+        UpdateBalance();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public static void UpdateBalance()
+    {
+        controller.UpdateText("Balance: " + Profile.Balance);
     }
 }

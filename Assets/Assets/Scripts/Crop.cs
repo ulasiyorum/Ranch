@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
+public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
 {
     public GameAssets gameAssets;
-    public UIController controller;
+
     private const int MaxFaze = 3;
     private int id;
     private int purchaseValue;
@@ -25,7 +25,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
     }
     private void Start()
     {
-        controller.UpdateText("Balance: " + Profile.Balance);
+
     }
 
 
@@ -71,7 +71,7 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
         currentFaze = 0;
         GetComponent<SpriteRenderer>().sprite = gameAssets.CropSprites[id + CurrentFaze];
         Profile.Balance += collectPrize;
-        controller.UpdateText("Balance: " + Profile.Balance);
+        Main.UpdateBalance();
         PlayCollectAnimation();
         SaveSystem.Save();
     }
@@ -122,6 +122,6 @@ public class Crop : MonoBehaviour,IUpgradable,IPointerDownHandler
             float decreaseby = c.collectTime / 20;
             c.collectTime -= decreaseby;
         }
-        c.controller.UpdateText("Balance: " + Profile.Balance);
+        Main.UpdateBalance();
     }
 }
