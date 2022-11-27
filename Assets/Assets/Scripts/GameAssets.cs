@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class GameAssets : MonoBehaviour
 {
+    private static GameAssets assetsInstance;
+    public static GameAssets Instance
+    {
+        get
+        {
+            if(assetsInstance == null)
+            {
+                assetsInstance = FindObjectOfType<GameAssets>();
+            }
+            return assetsInstance;
+        }
+    }
+
     [SerializeField] Sprite[] cropSprites;
     [SerializeField] GameObject[] animalPrefabs;
     [SerializeField] GameObject[] textPrefabs;

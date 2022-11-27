@@ -5,9 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Animal : MonoBehaviour,ICollectable,IPointerDownHandler
 {
-    public GameAssets gameAssets;
     private const int MaxFaze = 1;
-    private int id;
+    [SerializeField] int id;
     private int purchaseValue;
     private int collectPrize;
     private float collectTime;
@@ -26,14 +25,14 @@ public class Animal : MonoBehaviour,ICollectable,IPointerDownHandler
         switch (id)
         {
             case 0:
-                this.purchaseValue = 0;
-                this.collectPrize = 1;
-                this.collectTime = 6;
+                this.purchaseValue = 1500;
+                this.collectPrize = 10;
+                this.collectTime = 15;
                 break;
             default:
-                this.purchaseValue = 0;
-                this.collectPrize = 1;
-                this.collectTime = 6;
+                this.purchaseValue = 1500;
+                this.collectPrize = 10;
+                this.collectTime = 15;
                 break;
         }
     }
@@ -90,14 +89,14 @@ public class Animal : MonoBehaviour,ICollectable,IPointerDownHandler
     {
         if (currentFaze < MaxFaze)
         {
-            PopUpMessage.StartPopUpMessage(gameAssets.TextPrefabs[0], "Product is not ready!",Color.yellow);
+            PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[0], "Product is not ready!",Color.yellow);
             return;
         }
             Collect();
     }
     private void PlayCollectAnimation()
     {
-        AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[1], isReady.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite);
+        AnimationController.PlayAnimation(GameAssets.Instance.AnimationPrefabs[1], isReady.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite);
     }
     private IEnumerator PlayRandomAnimation()
     {

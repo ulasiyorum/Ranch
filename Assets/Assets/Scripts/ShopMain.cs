@@ -7,7 +7,6 @@ public class ShopMain : MonoBehaviour
 {
     [SerializeField] Crop crop;
     [SerializeField] Text[] prices;
-    public GameAssets assets;
     private void Start()
     {
         AllTextsUpdated();
@@ -24,7 +23,7 @@ public class ShopMain : MonoBehaviour
         int price = int.Parse(prices[buy].text);
         if (price > Profile.Balance)
         {
-            PopUpMessage.StartPopUpMessage(assets.TextPrefabs[0],"Not Enough Balance");
+            PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[0],"Not Enough Balance");
             return;
         }
         Profile.Balance -= Profile.PriceList[buy];
@@ -34,14 +33,14 @@ public class ShopMain : MonoBehaviour
                 Profile.ExtraCrop++;
                 Crop.PerksInit(crop);
                 UpdatePrice(Profile.PriceList[buy] + Profile.PriceList[buy] * 4 * Profile.ExtraCrop, buy);
-                PopUpMessage.StartPopUpMessage(assets.TextPrefabs[1], "Upgrade Applied!");
+                PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[1], "Upgrade Applied!");
                 SaveSystem.Save();
             break;
             case 1:
                 Profile.RegrowFaster++;
                 Crop.PerksInit(crop);
                 UpdatePrice((Profile.PriceList[buy] - 3) * 5 * (Profile.RegrowFaster + 1), buy);
-                PopUpMessage.StartPopUpMessage(assets.TextPrefabs[1], "Upgrade Applied!");
+                PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[1], "Upgrade Applied!");
                 SaveSystem.Save();
             break;
         }
@@ -81,12 +80,12 @@ public class ShopMain : MonoBehaviour
             return;
         if(item.Price > Profile.Balance)
         {
-            PopUpMessage.StartPopUpMessage(assets.TextPrefabs[0], "Not Enough Balance");
+            PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[0], "Not Enough Balance");
             return;
         }
 
         Profile.Balance -= item.Price;
-        PopUpMessage.StartPopUpMessage(assets.TextPrefabs[1], "Bought " + item.Name + " for " + item.Price);
-        item.Event.Invoke(assets);
+        PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[1], "Bought " + item.Name + " for " + item.Price);
+        item.Event.Invoke(GameAssets.Instance);
     }
 }

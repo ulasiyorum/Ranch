@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
 {
-    public GameAssets gameAssets;
-
     private const int MaxFaze = 3;
     private int id;
     private int purchaseValue;
@@ -47,7 +45,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
         {
             yield return new WaitForSeconds(collectTime);
             currentFaze++;
-            GetComponent<SpriteRenderer>().sprite = gameAssets.CropSprites[id+CurrentFaze];
+            GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id+CurrentFaze];
             StartCoroutine(SkipFaze(collectTime));
         }
     }
@@ -56,7 +54,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
     {
         if (currentFaze < MaxFaze - 1)
         {
-            PopUpMessage.StartPopUpMessage(gameAssets.TextPrefabs[0], "Crop Is Not Yet Ready To Harvest.");
+            PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[0], "Crop Is Not Yet Ready To Harvest.");
             return;
         }
         Collect();
@@ -66,7 +64,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
     private void Collect()
     {
         currentFaze = 0;
-        GetComponent<SpriteRenderer>().sprite = gameAssets.CropSprites[id + CurrentFaze];
+        GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id + CurrentFaze];
         Profile.Balance += collectPrize;
         Main.UpdateBalance();
         PlayCollectAnimation();
@@ -74,7 +72,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
     }
     private void PlayCollectAnimation()
     {
-        AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[0], gameAssets.CropSprites[id+2]);
+        AnimationController.PlayAnimation(GameAssets.Instance.AnimationPrefabs[0], GameAssets.Instance.CropSprites[id+2]);
     }
     public void Init(Crop crop)
     {
@@ -89,7 +87,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
     private void RestartGrowing()
     {
         StopAllCoroutines();
-        GetComponent<SpriteRenderer>().sprite = gameAssets.CropSprites[id + CurrentFaze];
+        GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id + CurrentFaze];
         StartCoroutine(SkipFaze(collectTime));
     }
     public Crop(int id)
