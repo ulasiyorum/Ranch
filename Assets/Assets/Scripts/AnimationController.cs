@@ -10,4 +10,5 @@ public class AnimationController : MonoBehaviour
         GameObject go = Instantiate(prefab);
         Destroy(go,go.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0).Length-.25f);
     }
+ 
 }

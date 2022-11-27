@@ -59,11 +59,8 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
             PopUpMessage.StartPopUpMessage(gameAssets.TextPrefabs[0], "Crop Is Not Yet Ready To Harvest.");
             return;
         }
-        else
-        {
-            Collect();
-            StartCoroutine(SkipFaze(collectTime));
-        }
+        Collect();
+        StartCoroutine(SkipFaze(collectTime));
         
     }
     private void Collect()
@@ -77,7 +74,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
     }
     private void PlayCollectAnimation()
     {
-        AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[id], gameAssets.CropSprites[id+2]);
+        AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[0], gameAssets.CropSprites[id+2]);
     }
     public void Init(Crop crop)
     {

@@ -19,12 +19,38 @@ public class Animal : MonoBehaviour,ICollectable,IPointerDownHandler
     public float CollectTime { get => collectTime; set => collectTime = value; }
     public int CollectPrize { get => collectPrize; set => collectPrize = value; }
     public int CurrentFaze { get => currentFaze; set => currentFaze = value; }
-
+    public Animal(int id)
+    {
+        currentFaze = 0;
+        this.id = id;
+        switch (id)
+        {
+            case 0:
+                this.purchaseValue = 0;
+                this.collectPrize = 1;
+                this.collectTime = 6;
+                break;
+            default:
+                this.purchaseValue = 0;
+                this.collectPrize = 1;
+                this.collectTime = 6;
+                break;
+        }
+    }
+    private void Init(Animal animal)
+    {
+        this.id = animal.id;
+        this.purchaseValue = animal.purchaseValue;
+        this.collectPrize = animal.collectPrize;
+        this.collectTime = animal.collectTime;
+        RestartProduction();
+    }
     private void Start()
     {
-        //isReady = GetComponentInChildren<GameObject>();
-        //isReady.SetActive(false);
+        isReady = transform.GetChild(0).gameObject;
+        isReady.SetActive(false);
         StartCoroutine(PlayRandomAnimation());
+        Init(new Animal(0));
     }
 
 
@@ -35,39 +61,43 @@ public class Animal : MonoBehaviour,ICollectable,IPointerDownHandler
 
     public IEnumerator SkipFaze(float time)
     {
-        if (currentFaze != 0)
+        if (currentFaze > 0)
+        {
             yield return new WaitForSeconds(0);
-
+            isReady.SetActive(true);
+        }
         yield return new WaitForSeconds(time);
         currentFaze++;
-        isReady.SetActive(true);
+        StartCoroutine(SkipFaze(CollectTime));
     }
 
     private void Collect()
     {
+        currentFaze = 0;
         isReady.SetActive(false);
         Profile.Balance += collectPrize;
         PlayCollectAnimation();
         SaveSystem.Save();
         Main.UpdateBalance();
     }
-
+    private void RestartProduction()
+    {
+        StopCoroutine("SkipFaze");
+        isReady.SetActive(false);
+        StartCoroutine(SkipFaze(collectTime));
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (currentFaze < MaxFaze - 1)
+        if (currentFaze < MaxFaze)
         {
             PopUpMessage.StartPopUpMessage(gameAssets.TextPrefabs[0], "Product is not ready!",Color.yellow);
             return;
         }
-        else
-        {
             Collect();
-            StartCoroutine(SkipFaze(collectTime));
-        }
     }
     private void PlayCollectAnimation()
     {
-        AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[id], isReady.GetComponentInChildren<SpriteRenderer>().sprite);
+        AnimationController.PlayAnimation(gameAssets.AnimationPrefabs[1], isReady.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite);
     }
     private IEnumerator PlayRandomAnimation()
     {
