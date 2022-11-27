@@ -14,6 +14,12 @@ public static class Profile
                 return crop;
         } 
     }
+    private static int animal = -1;
+    public static int Animal
+    {
+        get => animal;
+        set => animal = value;
+    }
     private static int balance;
     public static int Balance 
     { 
@@ -61,5 +67,6 @@ public static class Profile
         crop = new Crop(p.Crop);
         regrowFaster = p.RegrowFaster;
         PriceList = p.UpgradesPriceList;
+        animal = p.Animal;
     }
 }

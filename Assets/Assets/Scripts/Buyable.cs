@@ -31,7 +31,7 @@ public class Buyable
     }
     public static Buyable GetBuyable(int buy) => buy switch
     {
-        0 => new Buyable(),
+        0 => new Buyable(1500,0,1,1),
         1 => new Buyable(),
         2 => new Buyable(),
         _ => null
@@ -40,16 +40,19 @@ public class Buyable
     public static void Event0(GameAssets assets)
     {
         ClearAnimals();
-        GameObject.Instantiate(assets.AnimalPrefabs[0],GameObject.FindObjectOfType<Canvas>().transform,false);
+        Profile.Animal = 0;
+        GameObject.Instantiate(assets.AnimalPrefabs[0],Main.Instance.Farm.transform,false);
     }
     public static void Event1(GameAssets assets)
     {
         ClearAnimals();
+        Profile.Animal = 1;
         GameObject.Instantiate(assets.AnimalPrefabs[1], GameObject.FindObjectOfType<Canvas>().transform, false);
     }
     // Shop is planned to have more things than just animals so that's why it's implemented like this : It's not finished
     public static void ClearAnimals()
     {
+        Profile.Animal = -1;
         GameObject.Destroy(GameObject.FindObjectOfType<Animal>());
     }
 }

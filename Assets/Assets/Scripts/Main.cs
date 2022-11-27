@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
+    public static Main instance;
+    public static Main Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<Main>();
+            }
+            return instance;
+        }
+    }
+
+    [SerializeField] GameObject farm;
+    public GameObject Farm { get => farm; }
     [SerializeField] Crop crop;
     private static UIController controller;
     private void Awake()
@@ -15,6 +30,10 @@ public class Main : MonoBehaviour
             crop.Init(new Crop(data.Crop));
             Profile.Load(data);
             Crop.PerksInit(crop);
+            if(data.Animal != -1)
+            {
+                Buyable.GetBuyable(data.Animal).Event.Invoke(GameAssets.Instance);
+            }
         }
         else
         {

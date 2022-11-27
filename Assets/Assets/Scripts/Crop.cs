@@ -52,6 +52,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Profile.Balance += 200;
         if (currentFaze < MaxFaze - 1)
         {
             PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[0], "Crop Is Not Yet Ready To Harvest.");

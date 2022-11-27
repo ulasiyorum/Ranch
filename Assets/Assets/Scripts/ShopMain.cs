@@ -85,6 +85,7 @@ public class ShopMain : MonoBehaviour
         }
 
         Profile.Balance -= item.Price;
+        Main.UpdateBalance();
         PopUpMessage.StartPopUpMessage(GameAssets.Instance.TextPrefabs[1], "Bought " + item.Name + " for " + item.Price);
         item.Event.Invoke(GameAssets.Instance);
     }
