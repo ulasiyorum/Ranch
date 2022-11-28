@@ -21,6 +21,9 @@ public class Main : MonoBehaviour
     public GameObject Farm { get => farm; }
     [SerializeField] Crop crop;
     private static UIController controller;
+    [SerializeField] Canvas canvas;
+    public Canvas Canvas { get => canvas; }
+
     private void Awake()
     {
         controller = GetComponent<UIController>();

@@ -25,14 +25,19 @@ public class Animal : MonoBehaviour,ICollectable,IPointerDownHandler
         switch (id)
         {
             case 0:
-                this.purchaseValue = 1500;
+                this.purchaseValue = 750;
                 this.collectPrize = 10;
                 this.collectTime = 15;
                 break;
+            case 1:
+                this.purchaseValue = 1500;
+                this.collectPrize = 6;
+                this.collectTime = 6;
+                break;
             default:
                 this.purchaseValue = 1500;
-                this.collectPrize = 10;
-                this.collectTime = 15;
+                this.collectPrize = 6;
+                this.collectTime = 6;
                 break;
         }
     }
