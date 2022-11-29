@@ -45,7 +45,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
         {
             yield return new WaitForSeconds(collectTime);
             currentFaze++;
-            GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id+CurrentFaze];
+            GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id * MaxFaze + currentFaze];
             StartCoroutine(SkipFaze(collectTime));
         }
     }
@@ -65,7 +65,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
     private void Collect()
     {
         currentFaze = 0;
-        GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id + CurrentFaze];
+        GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id * MaxFaze + currentFaze];
         Profile.Balance += collectPrize;
         Main.UpdateBalance();
         PlayCollectAnimation();
@@ -73,7 +73,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
     }
     private void PlayCollectAnimation()
     {
-        AnimationController.PlayAnimation(GameAssets.Instance.AnimationPrefabs[0], GameAssets.Instance.CropSprites[id+2]);
+        AnimationController.PlayAnimation(GameAssets.Instance.AnimationPrefabs[0], GameAssets.Instance.CropSprites[id * MaxFaze + 2]);
     }
     public void Init(Crop crop)
     {
@@ -88,7 +88,7 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
     private void RestartGrowing()
     {
         StopAllCoroutines();
-        GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id + CurrentFaze];
+        GetComponent<SpriteRenderer>().sprite = GameAssets.Instance.CropSprites[id * MaxFaze];
         StartCoroutine(SkipFaze(collectTime));
     }
     public Crop(int id)
@@ -102,6 +102,11 @@ public class Crop : MonoBehaviour,ICollectable,IPointerDownHandler
                 this.collectPrize = 1;
                 this.collectTime = 2;
             break;
+            case 1:
+                this.purchaseValue = 400;
+                this.collectPrize = 3;
+                this.collectTime = 2;
+                break;
             default:
                 this.purchaseValue = 0;
                 this.collectPrize = 1;

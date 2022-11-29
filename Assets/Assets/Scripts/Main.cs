@@ -16,13 +16,18 @@ public class Main : MonoBehaviour
             return instance;
         }
     }
+    private static UIController controller;
+
+
+
 
     [SerializeField] GameObject farm;
     public GameObject Farm { get => farm; }
     [SerializeField] Crop crop;
-    private static UIController controller;
     [SerializeField] Canvas canvas;
     public Canvas Canvas { get => canvas; }
+    public Crop Crop { get => crop; }
+
 
     private void Awake()
     {

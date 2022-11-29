@@ -22,6 +22,7 @@ public class Buyable
         {
             0 => Event0,
             1 => Event1,
+            2 => Event2,
             _ => null
         };
     }
@@ -33,7 +34,7 @@ public class Buyable
     {
         0 => new Buyable(750,0,1,1),
         1 => new Buyable(1500,1,1,1),
-        2 => new Buyable(),
+        2 => new Buyable(400,2,1,1),
         _ => null
     };
 
@@ -48,6 +49,13 @@ public class Buyable
         ClearAnimals();
         Profile.Animal = 1;
         GameObject.Instantiate(assets.AnimalPrefabs[1], Main.Instance.Farm.transform, false);
+    }
+    public static void Event2(GameAssets assets)
+    {
+        Profile.Crop = 1;
+        Crop bought = new Crop(Profile.Crop);
+        Main.Instance.Crop.Init(bought);
+        Crop.PerksInit(Main.Instance.Crop);
     }
     // Shop is planned to have more things than just animals so that's why it's implemented like this : It's not finished
     public static void ClearAnimals()

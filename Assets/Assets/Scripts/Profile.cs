@@ -4,15 +4,11 @@ using UnityEngine;
 
 public static class Profile
 {
-    private static Crop crop;
-    public static Crop Crop { 
-        get 
-        {
-            if (crop == null) 
-                return new Crop(0);
-            else
-                return crop;
-        } 
+    private static int crop = 0;
+    public static int Crop
+    {
+        get => crop;
+        set => crop = value;
     }
     private static int animal = -1;
     public static int Animal
@@ -64,7 +60,7 @@ public static class Profile
     {
         balance = p.Balance;
         extraCrop = p.ExtraCrop;
-        crop = new Crop(p.Crop);
+        crop = p.Crop;
         regrowFaster = p.RegrowFaster;
         PriceList = p.UpgradesPriceList;
         animal = p.Animal;

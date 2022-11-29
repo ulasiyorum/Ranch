@@ -18,7 +18,7 @@ public class ProfileData
     {
         this.Balance = Profile.Balance;
         this.ExtraCrop = Profile.ExtraCrop;
-        this.Crop = Profile.Crop.ID;
+        this.Crop = Profile.Crop;
         this.RegrowFaster = Profile.RegrowFaster;
         this.UpgradesPriceList = Profile.PriceList;
         this.Animal = Profile.Animal;
